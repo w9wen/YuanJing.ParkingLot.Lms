@@ -1,0 +1,47 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
+import { AccountService } from '../_services/account.service';
+
+@Component({
+  selector: 'app-nav',
+  templateUrl: './nav.component.html',
+  styleUrls: ['./nav.component.css']
+})
+export class NavComponent implements OnInit {
+  model: any = {};
+
+  constructor(
+    public accountService: AccountService,
+    private router: Router,
+    private toastr: ToastrService) { }
+
+  ngOnInit(): void {
+  }
+
+  login() {
+    this.accountService.login(this.model).subscribe({
+      complete: () => { },
+      error: () => { },
+      next: (response) => {
+        Swal.fire(
+          "w9wen",
+          "您已成功登入",
+          "success"
+        )
+      },
+    });
+  }
+
+  logout() {
+    Swal.fire(
+      "w9wen",
+      "您已完成登出",
+      "info"
+    );
+    this.accountService.logout();
+    this.router.navigateByUrl("/");
+  }
+
+}

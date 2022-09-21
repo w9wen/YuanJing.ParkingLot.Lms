@@ -1,0 +1,9 @@
+<div class="container">
+    <h1>Employee Panel</h1>
+    <ng-container *ngIf="accountService.currentUser$ | async">
+        <button class="btn btn-info btn-lg" *appHasRoles="['SuperAdmin', 'Admin']" routerLink="create">Create a
+            Employee</button>
+    </ng-container>
+
+    <app-employee-list></app-employee-list>
+</div>

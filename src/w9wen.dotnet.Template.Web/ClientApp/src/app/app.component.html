@@ -1,0 +1,21 @@
+<!-- <h1>{{title}}</h1>
+
+<ul *ngIf="projectListResponse">
+    <li *ngFor="let project of projectListResponse.projects">
+        <h3>{{project.name}}</h3>
+    </li>
+</ul>
+<button class="btn btn-primary mr-2" (click)="createProject()" type="button">Create</button>
+<button class="btn btn-primary mr-2" (click)="updateProject()" type="button">Update</button>
+<button class="btn btn-primary mr-2" (click)="getProject()" type="button">Get</button>
+<button class="btn btn-danger mr-2" (click)="deleteProject(10)" type="button">Delete</button> -->
+
+<!-- <ngx-spinner type="ball-scale-multiple">
+    <h3>Loading...</h3>
+</ngx-spinner> -->
+
+<app-nav></app-nav>
+
+<div class="container" style="margin-top: 100px">
+    <router-outlet></router-outlet>
+</div>

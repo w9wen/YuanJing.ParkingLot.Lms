@@ -1,0 +1,93 @@
+<div class="row" *ngIf="employeeItem">
+    <div class="col-4">
+        <h1>Your profile</h1>
+    </div>
+    <div class="col-8">
+        <div class="alert alert-info" *ngIf="editForm.dirty">
+            <strong>Information: </strong> You have made changes. Any unsaved changes will be lost
+        </div>
+    </div>
+
+    <div class="col-4">
+        <div class="card">
+            <img src="{{'./assets/user.png'}}" alt="{{employeeItem.knownAs}}" class="card-img-top img-thumbnail">
+            <div class="card-body">
+                <!-- <div *ngIf="userItem.userName != employeeItem.userName">;
+                    <strong>Roles</strong>
+                </div> -->
+
+                <div>
+                    <strong>Roles:</strong>
+                    <mat-form-field appearance="fill" *ngIf="employeeItem.userName != userItem.userName">
+                        <mat-label>Select Role</mat-label>
+                        <mat-select [(value)]="employeeItem.roles" multiple>
+                            <mat-option *ngFor="let role of roles" [value]="role">
+                                {{role}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-list *ngIf="employeeItem.userName == userItem.userName">
+                        <mat-list-item *ngFor="let employeeItemRole of employeeItem.roles">{{employeeItemRole}}
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+
+
+                <div>
+                    <strong>Location:</strong>
+                    <p>{{employeeItem.city}}, {{employeeItem.country}}</p>
+                </div>
+                <!-- <div>
+                    <strong>Age:</strong>
+                    <p>{{employeeItem.age}}</p>
+                </div> -->
+                <div>
+                    <strong>Last Active:</strong>
+                    <p>{{employeeItem.updatedDateTime | timeago}}</p>
+                </div>
+                <div>
+                    <strong>Employee since:</strong>
+                    <p>{{employeeItem.createdDateTime | date: "yyyy/MM/dd"}}</p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <!-- <button [disabled]="!editForm.dirty" form="editForm" type="submit"
+                    class="btn btn-success btn-block">Save Changes</button> -->
+                <button form="editForm" type="submit" class="btn btn-success btn-block">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-8">
+        <tabset class="employee-tabset">
+            <tab heading="About {{employeeItem.knownAs}}">
+                <form #editForm="ngForm" id="editForm" (ngSubmit)="updateEmployee()">
+                    <h4>Birthday</h4>
+                    <input [ngModel]="employeeItem.dateOfBirth | date:'yyyy-MM-dd'"
+                        (ngModelChange)="employeeItem.dateOfBirth = $event" type="date" name="dateOfBirth" rows="6"
+                        class="form-control" />
+                    <h4>Description</h4>
+                    <textarea class="form-control" [(ngModel)]="employeeItem.introduction" name="introduction"
+                        rows="6"></textarea>
+                    <!-- <h4 class="mt-2">Looking for</h4>
+                    <textarea class="form-control" [(ngModel)]="employeeItem.lookingFor" name="lookingFor"
+                        rows="6"></textarea> -->
+                    <h4 class="mt-2">Interests</h4>
+                    <textarea class="form-control" [(ngModel)]="employeeItem.interests" name="interests"
+                        rows="6"></textarea>
+                    <h4 class="mt-2">Location Details: </h4>
+                    <div class="form-inline">
+                        <label for="city">City: </label>
+                        <input [(ngModel)]="employeeItem.city" type="text" name="city" class="form-control mx-2">
+                        <label for="city">Country: </label>
+                        <input [(ngModel)]="employeeItem.country" type="text" name="country" class="form-control mx-2">
+                    </div>
+                </form>
+
+            </tab>
+            <!-- <tab heading='Edit Photos'>
+                <app-photo-editor [employeeItem]="employeeItem"></app-photo-editor>
+            </tab> -->
+        </tabset>
+    </div>
+</div>

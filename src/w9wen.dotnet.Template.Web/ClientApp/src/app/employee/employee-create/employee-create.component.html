@@ -1,0 +1,41 @@
+<form [formGroup]="createForm" (ngSubmit)="createForm.valid && createEmployee()" autocomplete="off">
+    <h2 class="text-center text-primary">Create a Employee</h2>
+    <hr>
+
+    <div class="mb-3">
+        <label class="form-check-label">
+            <input class="form-check-input" type="radio" value="male" formControlName="gender"> Male
+        </label>
+        <label class="form-check-label">
+            <input type="radio" value="female" formControlName="gender" class="form-check-input ms-3"> Female
+        </label>
+    </div>
+    <mat-form-field appearance="fill">
+        <mat-label>Select Role</mat-label>
+        <mat-select multiple formControlName="roles">
+            <mat-option *ngFor="let role of roles" [value]="role">
+                {{role}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <app-text-input [formControl]="createForm.controls['userName']" [label]="'User Name'"></app-text-input>
+    <app-text-input [formControl]="createForm.controls['phoneNumber']" [label]="'Phone Number'"></app-text-input>
+    <app-text-input [formControl]="createForm.controls['email']" [label]="'Email'"></app-text-input>
+    <app-date-input [formControl]="createForm.controls['dateOfBirth']" [label]="'Date Of Birth'" [maxDate]="maxDate">
+    </app-date-input>
+    <app-text-input [formControl]="createForm.controls['city']" [label]="'City'"></app-text-input>
+    <app-text-input [formControl]="createForm.controls['country']" [label]="'Country'"></app-text-input>
+    <div class="row" *ngIf="validationErrors.length > 0">
+        <ul class="text-danger">
+            <li *ngFor="let error of validationErrors">
+                {{error}}
+            </li>
+        </ul>
+    </div>
+
+    <div class="form-group text-center">
+        <button [disabled]="!createForm.valid" class="btn btn-success mr-2" type="submit">Confirm</button>
+        <button class="btn btn-default mr-2" (click)="cancel()" type="button">Cancel</button>
+    </div>
+</form>
